@@ -1,18 +1,24 @@
+[TOC]
+
+
+
+<div style="page-break-after: always;"></div>
+
 # Introduction
 
 ## La société:
 
 
 
-En 2016 la société Terra Nova rejoint Sysoco et est spécialisée dans les solutions de collecte d'informations à distance dans des domaines liés à la Propreté Urbaine, au Transport et à la Viabilité Hivernale.
+En 2016 la société Terra Nova rejoint Sysoco et est spécialisée dans les solutions de collecte d'informations à distance dans des domaines liés à la Propreté Urbaine, au Transport et à la Viabilité Hivernale. Cette société prend le nom de SYSOCO mobility.
 
-Les solutions logicielles SYGETRACK de SYSOCO sont utilisées par des clients importants comme Montpellier Méditerranée Métropole, la Métropole Aix-Marseille, Nice Côte d'Azur Métropole ou le Syndicat Mixte du Bois de l'Aumône.  La Police Municipale de la Ville de Nice figure également dans la liste de références de Terra Nova ainsi que le Conseil Départemental du Loir-et-Cher. Dans la région Rhône Alpes, des clients comme les Villes de Saint-Etienne,  d'Echirolles et Chambéry Métropole utilisent quotidiennement des solutions déployées par Terra nova. Des entreprises privées comme,  SILIM & BRONZO Environnement, Derichebourg PolyUrbaine ou le Groupe Nicollin ont choisi les solutions développées et déployées par la société.
+Les solutions logicielles SYGETRACK de SYSOCO mobility sont utilisées par des clients importants comme Montpellier Méditerranée Métropole, la Métropole Aix-Marseille, Nice Côte d'Azur Métropole ou le Syndicat Mixte du Bois de l'Aumône.  La Police Municipale de la Ville de Nice figure également dans la liste de références de SYSOCO mobility ainsi que le Conseil Départemental du Loir-et-Cher. Dans la région Rhône Alpes, des clients comme les Villes de Saint-Etienne,  d'Echirolles et Chambéry Métropole utilisent quotidiennement des solutions déployées par SYSOCO mobility. Des entreprises privées comme,  SILIM & BRONZO Environnement, Derichebourg PolyUrbaine ou le Groupe Nicollin ont choisi les solutions développées et déployées par la société. 
 
-Depuis mars 2019 Sysoco est intégré au sein de Vinci énergies.
+SYSOCO mobility compte prés de 150 clients a travers la France.
 
-Sysoco mobility est la société au sein de Vinci qui assure la mise en oeuvre et le développement des solutions SYGETRACK. Elle est composée d'un directeur, de quatre ingénieurs développeurs, deux secrétaires qui assurent le SAV et les contrats et deux responsables commerciaux.
+Depuis mars 2019 SYSOCO mobility est intégré au sein de Vinci énergies.
 
-
+SYSOCO mobility est la société au sein de Vinci qui assure la mise en oeuvre et le développement des solutions SYGETRACK. Elle est composée d'un directeur, de quatre ingénieurs développeurs, deux secrétaires qui assurent le SAV et les contrats et de deux responsables commerciaux.
 
 
 
@@ -20,11 +26,53 @@ Sysoco mobility est la société au sein de Vinci qui assure la mise en oeuvre e
 
 Les solutions mise en œuvre par SYGETRACK permettent aux opérateurs de programmer  les tournées de ramassage des ordures ménagères. Chaque camion benne à ordures ménagères ou BOM est équipé de multiples capteurs; puces GPS, capteurs de levée de bac, lecteurs de puces RFID permettant de remonter vers les serveurs toutes les informations de poids, d'identification, de chaque mouvement de bac. De plus chaque information est géolocalisée. 
 
-SYGETRACK permets pour l'opérateur des remontée de statistiques sur l'ensemble des tournée, d'effectuer des calcul de carbone consommée pour l'établissement des taxes carbone, etc… Ces taxes carbone sont ensuite payer par l'organisme. Cela montre l'importance d'optimiser les tournées.
+SYGETRACK est développé en php 4 avec un framework créé par les développeurs de SYSOCO avec un serveur Web apache. La base de données est une solution firebird.
+
+La réception des informations issues des camions benne par GPRS transit par un serveur de communication développé en java en interne. 
+
+```mermaid
+graph LR
+
+title[<u>Fonctionnement de SYGETRACK</u>]
+
+
+subgraph Serveur de comm
+	Vehicule[Vehicule 1] -- via GPRS --> comm((Serveur de <br/>Comm <br/> en java))
+
+	Vehicule2[Vehicule 2] -- via GPRS--> comm
+
+	Vehicule3[Vehicule 3] -- via GPRS --> comm
+
+
+comm-->reposit{Stockage des messages <br>issues des véhicules <br>sous forme .txt}
+end
+
+	subgraph serveur apache
+	
+	bdd1{Base de données client 1} --> svrApache((Serveur Apache SYGETRACK))
+
+	bdd2{Base de données client 2} --> svrApache
+
+	bdd3{Base de données client 3} --> svrApache
+
+	end
+ 
+reposit --Routine avec batch PHP-->svrApache
+
+
+     classDef green fill:#9f6,stroke:#333,stroke-width:2px;
+     classDef orange fill:#f96,stroke:#333,stroke-width:4px;
+     class svrApache green
+     class comm orange
+```
+
+
+
+SYGETRACK permet pour l'opérateur des remontées de statistiques sur l'ensemble des tournées, d'effectuer des calculs de carbone consommée pour l'établissement des taxes carbone, etc… Ces taxes carbone sont ensuite payer par l'organisme. Cela montre l'importance d'optimiser les tournées.
 
 Comme chaque informations est géolocalisée par une latitude et une longitude il est nécessaire d'effectuer un « reverse-geocoding » de ces positions pour retrouver une adresse avec numéro de rue, nom de rue et ville. Il existe des services payants ou gratuits qui permettent ce reverse-geocoding mais avec des limites. 
 
-Le gouvernement à mis en place une API  permettant de faire du geocoding et reverse-geocoding à l'adresse suivante: 
+Le gouvernement français à mis en place une API  permettant de faire du geocoding et reverse-geocoding à l'adresse suivante: 
 
 ​		`https://adresse.data.gouv.fr/api`.
 
@@ -35,7 +83,7 @@ Cette API est gratuite mais avec les limites suivantes:
 
 SYGETRACK à besoin de retrouver plusieurs centaines d'adresses par jour. Cette solution n'est donc pas possible. Il existe aussi des sociétés privés qui vendent des services de geocoding et de geocoding inverse. C'est la solution actuelle retenue par SYGETRACK. Mais elle à un coût.
 
-Pour l'organisation des tournées de ramassage SYGETRACK fait appel à une société qui calcule la meilleurs tournée entre plusieurs points, c'est la société `benomad`:` https://benomad.com`.
+Pour l'optimisation des tournées de ramassage SYSOCO fait appel à une société qui calcule la meilleurs tournée entre plusieurs points, c'est la société benomad:` https://benomad.com`.
 
 
 
@@ -45,13 +93,13 @@ La mission qui m'est confiée comporte deux parties.
 
 La première partie concerne les serveurs de tuiles cartographiques. Il s'agit de faire un état de l'art des technologies existantes puis de mettre en place ce serveur.
 
-La deuxième partie concerne les API de **géocodage** et **routage**
+La deuxième partie concerne les API de **géocodage** et **routage**. Il faut après étude des meilleurs technologies du moment mettre en place ces API.
 
 Le géocodage consiste à affecter des [coordonnées géographiques](https://fr.wikipedia.org/wiki/Coordonnées_géographiques) ([longitude](https://fr.wikipedia.org/wiki/Longitude)/[latitude](https://fr.wikipedia.org/wiki/Latitude)) à une adresse postale. Son pendant est le géocodage inversé. Le géocodage inversé (ou en [anglais](https://fr.wikipedia.org/wiki/Anglais) : *reverse geocoding*) consiste à effectuer l'opération inverse du [géocodage](https://fr.wikipedia.org/wiki/Géocodage), c'est-à-dire d'attribuer une adresse à des [coordonnées géographiques](https://fr.wikipedia.org/wiki/Coordonnées_géographiques). L'adresse ainsi retrouvée peut être utilisée dans des applications de [géolocalisation](https://fr.wikipedia.org/wiki/Géolocalisation) capables d'indiquer l'adresse où se trouve la personne utilisatrice.
 
 Le **routage** est le mécanisme par lequel des chemins sont sélectionnés dans un [réseau](https://fr.wikipedia.org/wiki/Réseau_informatique) routier pour acheminer un voyageur d'un point de départ  vers un ou plusieurs point de destination. Il existe traditionnellement le routage entre deux points ou la routage sur une multitude de point pour organiser au mieux une tournée.
 
-
+<div style="page-break-after: always;"></div>
 
 # Configuration du serveur
 
@@ -82,6 +130,8 @@ Les prérequis logiciels sont:
 
   
 
+<div style="page-break-after: always;"></div>
+
 #  Serveur cartographique
 
  Actuellement SYSOCO utilise un serveur de tuiles cartographique ayant été mis en place il y a une dizaine d'année sous Flash/Adobe en actionscript 2. Ce serveur n'a jamais été mis à jour et se retrouve bloqué par les politiques des navigateurs internet refusant la technologie flash.
@@ -104,7 +154,7 @@ En terme de gestion de la données physique, nous utiliserons un serveur de base
 
 Pour télécharger les données issue de OpenStreetMap il est nécessaire d'utiliser un outils supplémentaire: **osm2pgsql**
 
-## Installation de PostGresql
+## Installation de postgresql
 
 ### Méthode recommandée
 
@@ -323,13 +373,27 @@ Où
 
 
 
+
+
+
+
+
+
+<div style="page-break-after: always;"></div>
+
 # Les API
 
 ## Introduction
 
 Il existe un certain nombre de site proposant des API de routing ou geocoding sur internet. Les services gratuits sont bien souvent assortis de limite ne permettant pas d'utiliser ces services de manière industrielle. Quant aux services sans limite leur coût est bien souvent très important.
 
-Toutes les routes des API sont testées avec le logiciel POSTMAN.
+Toutes les routes des API sont testées avec le logiciel POSTMAN qui est un client WEB/API. 
+
+
+
+## Mise en place des API avec Docker
+
+
 
 ## Le routing
 
@@ -405,7 +469,17 @@ docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /
 
 Cette commande va extraire du fichier natif de OSM les fichiers contenant les notes, way et relations permettant d'effectuer le calcul de routing.
 
-Cette opération nécessite beaucoup de mémoire.
+Cette extraction se fait en utilisant un profil de véhicule . Par défaut il existe trois profiles dans OSRM:
+
+- Véhicule standard (voiture)
+- Piéton
+- Cycliste
+
+Ces profiles sont utilisé lors de préprossessing c'est à dire lors de l'extraction des données du fichier OSM. C'est profiles sont écrit en LUA car ce sont de véritables script de configuration. Dans ces profiles les poids, vitesses et tailles des véhicules peuvent être particularisés.
+
+
+
+L'opération d'extraction nécessite beaucoup de mémoire et de temps.
 
 A titre d'exemple pour le fichier paca-latest.osm.pbf de 260 Mo le serveur consomme en RAM: *1 Go*
 
@@ -439,7 +513,7 @@ http://localhost:5000/route/v1/driving/5.9501,43.1194;5.9655,43.113?steps=true&g
 
 
 
-La réponse du serveur sera du type:
+La réponse (tronquée) du serveur sera du type:
 
 La réponse en JSON sera:
 
@@ -595,41 +669,220 @@ Voici les réponses possibles:
 
 
 
-Les Services
+#### Les Services rendu par l'API
 
 
 
+##### Nearest:
 
+A partir d'une coordonnées en latitude et longitude OSRM recherche et renvoie les n correspondances les plus proche. 
 
+Le couple `coordinates` prend uniquement comme valeur `{longitude},{latitude}`.
 
+L'option pour ce service :
 
-Les différents services de l'API
+| Option | Valeurs                            | Description                  |
+| ------ | ---------------------------------- | ---------------------------- |
+| number | `integer >= 1`  (par défaut  `1` ) | Nombre de réponses renvoyée. |
 
+**Response**
 
+-  si la demande aboutie `code: Ok` est renvoyé.
+- `waypoints` tableau d'objet de type `Waypoint` triés par distance croissance par rapport aux coordonnées entrées. Chaque objet comporte aussi l'objet `nodes` qui est un tableau des `ìd` de OpenStreetMap.
 
-Nearest:
+GET
 
-A partir d'une coordonnées en latitude et longitude OSRM recherche et renvoie les n correspondances les plus proche. N correspond au paramètre number.
+`http://{server}/nearest/v1/{profile}/{coordinates}.json?number={number}`
 
+**Exemple d'une requête** 
 
-
-
-
-
-
-| **Option** | **Values**                | **Description**                         |
-| ---------- | ------------------------- | --------------------------------------- |
-| number     | integer >= 1 (default 1 ) | Retourne le nombre de segments demandés |
-
-
-
-Exemple :
-
-
-
-\# Querying nearest three snapped locations of `13.388860,52.517037` with a bearing between `20° - 340°`.
-
+```shell
+# Querying nearest three snapped locations of `13.388860,52.517037` with a bearing between `20° - 340°`.
 curl 'http://router.project-osrm.org/nearest/v1/driving/13.388860,52.517037?number=3&bearings=0,20'
+```
+
+**Exemple d'une réponse**
+
+```json
+{
+   "waypoints" : [
+      {
+         "nodes": [
+            2264199819,
+            0
+         ],
+         "hint" : "KSoKADRYroqUBAEAEAAAABkAAAAGAAAAAAAAABhnCQCLtwAA_0vMAKlYIQM8TMwArVghAwEAAQH1a66g",
+         "distance" : 4.152629,
+         "name" : "Friedrichstraße",
+         "location" : [
+            13.388799,
+            52.517033
+         ]
+      },
+      {
+         "nodes": [
+            2045820592,
+            0
+         ],
+         "hint" : "KSoKADRYroqUBAEABgAAAAAAAAAAAAAAKQAAABhnCQCLtwAA7kvMAAxZIQM8TMwArVghAwAAAQH1a66g",
+         "distance" : 11.811961,
+         "name" : "Friedrichstraße",
+         "location" : [
+            13.388782,
+            52.517132
+         ]
+      },
+      {
+         "nodes": [
+            0,
+            21487242
+         ],
+         "hint" : "KioKgDbbDgCUBAEAAAAAABoAAAAAAAAAPAAAABlnCQCLtwAA50vMADJZIQM8TMwArVghAwAAAQH1a66g",
+         "distance" : 15.872438,
+         "name" : "Friedrichstraße",
+         "location" : [
+            13.388775,
+            52.51717
+         ],
+      }
+   ],
+   "code" : "Ok"
+}
+```
+
+
+
+##### Route
+
+Trouver la route la plus rapide .
+
+Les différentes options possibles sont:
+
+| Option              | Valeurs                                                      | Description                                                  |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| alternatives        | `true` ,  `false`  (par défaut), or Number                   | Cherche des routes alternatives. Si  `alternatives=n`  la recherche renvoie le nombre de route spécifié. |
+| steps               | `true` ,  `false`  (défaut)                                  | Retourne pour chaque segment toutes les étapes en latitude et longitude |
+| annotations         | `true` ,  `false`  (défaut),  `nodes` ,  `distance` ,  `duration` ,  `datasources` ,  `weight` ,  `speed` | Retourne des metadata supplémentaire pour chaque segment.    |
+| geometries          | `polyline`  (défaut),  `polyline6` ,  `geojson`              | Format des géometries                                        |
+| overview            | `simplified`  (défaut),  `full` ,  `false`                   | Affiche un paramètre supplémentaire d'affichage en fonction du zoom |
+| continue _ straight | `default`  (défaut),  `true` ,  `false`                      | Force la route au point de passage à rester droite, même s'il y a perte de temps. |
+| waypoints           | `{index};{index};{index}...`                                 | Permet de modifier l'ordre du cheminement                    |
+
+
+
+**La réponse**
+
+- `code: OK` Si la requête est validée.
+- `waypoints`: Tableau d'objet `Waypoint`:
+- `routes`: Tableau d'objet `Route`, classé dans l'ordre du rank.
+
+En cas d'erreur en plus du `code`l'information `no route`est ajoutée:
+
+GET
+
+`/route/v1/{profile}/{coordinates}?alternatives={true|false|number}&steps={true|false}&geometries={polyline|polyline6|geojson}&overview={full|simplified|false}&annotations={true|false}`
+
+**Exemple de requête**
+
+```shell
+# Query on Berlin with three coordinates and no overview geometry returned:
+curl 'http://router.project-osrm.org/route/v1/driving/13.388860,52.517037;13.397634,52.529407;13.428555,52.523219?overview=false'
+```
+
+
+
+##### Trip
+
+Le service **TRIP** permet de résoudre le problème du voyageur de commerce. Il est a noter que toutes les coordonnées d'entrée doivent être connectées pour que le service de déplacement fonctionne
+
+En plus des options générales  les options suivantes sont supportée par le service `TRIP`:
+
+| Option      | Values                                                       | Description                                                  |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| roundtrip   | `true`  (défaut),  `false`                                   | L'itinéraire retourné est un aller-retour (l'itinéraire retourne au premier emplacement) |
+| source      | `any`  (défaut),  `first`                                    | L'itinéraire retourné commence à n'importe quelle coordonnées `any`ou à lapremière coordonnée `first` |
+| destination | `any`  (défaut),  `last`                                     | L'itinéraire retourné se termine à la coordonnée `any` ou` last` |
+| steps       | `true` ,  `false`  (défaut)                                  | Pour chaque segment retourne les instructions                |
+| annotations | `true` ,  `false`  (défaut),  `nodes` ,  `distance` ,  `duration` ,  `datasources` ,  `weight` ,  `speed` | Retourne des metadata supplémentaire pour chaque segment.    |
+| geometries  | `polyline`  (default),  `polyline6` ,  `geojson`             | Format des géometries.                                       |
+| overview    | `simplified`  (default),  `full` ,  `false`                  | Affiche un paramètre supplémentaire d'affichage en fonction du zoom. |
+
+**Imposer les points de départ et d'arrivé**
+
+Il est possible de définir explicitement les coordonnées de début ou de fin de la tournée. Lorsque `source` est défini sur `first`, la première coordonnée est utilisée comme coordonnée de début du trajet dans la sortie. Lorsque la destination est définie sur `last`, la dernière coordonnée sera utilisée comme destination dans la sortie renvoyée. Si on spécifie`any`, n'importe laquelle des coordonnées peut être utilisée comme première ou dernière coordonnée dans la sortie.
+
+Cependant, si `source=any&destination=any` la tournée débutera à la première coordonnée par défaut.
+
+Actuellement toutes les combinaison de  `roundtrip`, `source` and `destination` ne sont pas supportées. 
+
+Seules les combinaisons suivantes peuvent être utilisées:
+
+| roundtrip | source | destination | supported |
+| --------- | ------ | ----------- | --------- |
+| true      | first  | last        | **oui**   |
+| true      | first  | any         | **oui**   |
+| true      | any    | last        | **oui**   |
+| true      | any    | any         | **oui**   |
+| false     | first  | last        | **oui**   |
+| false     | first  | any         | Non       |
+| false     | any    | last        | Non       |
+| false     | any    | any         | Non       |
+
+- ``code: OK` Si la requête est validée.
+- `waypoints`: Tableau d'objet `Waypoint`:
+  - `waypoint_index`: index des point de passage.
+- `trips`: tableau des objets`Route` formant la route
+
+En cas d'erreur en plus du `code`les informations suivantes seront ajoutées:
+
+| Type             | Description                       |
+| ---------------- | --------------------------------- |
+| `NoTrips`        | Pas de tournée possible.          |
+| `NotImplemented` | Cette demande n'est pas supportée |
+
+
+
+GET
+
+`/trip/v1/{profile}/{coordinates}?roundtrip={true|false}&source{any|first}&destination{any|last}&steps={true|false}&geometries={polyline|polyline6|geojson}&overview={simplified|full|false}&annotations={true|false}'`
+
+
+
+**Exemple de requête**
+
+```shell
+# Round trip in Berlin with three stops:
+curl 'http://router.project-osrm.org/trip/v1/driving/13.388860,52.517037;13.397634,52.529407;13.428555,52.523219'
+# Round trip in Berlin with four stops, starting at the first stop, ending at the last:
+curl 'http://router.project-osrm.org/trip/v1/driving/13.388860,52.517037;13.397634,52.529407;13.428555,52.523219;13.418555,52.523215?source=first&destination=last'
+```
+
+
+
+### Tile service
+
+Ce service génère des [tuiles vectorielles Mapbox] (https://www.mapbox.com/developers/vector-tiles/) qui peuvent être visualisées avec une bibliothèque prenant en charge les tuiles vectorielles. Les tuiles contiennent des géométries de route et des métadonnées qui peuvent être utilisées pour afficher le graphe de routage. Les mosaïques sont générées directement à partir des données en mémoire. Elles sont donc synchronisées avec les résultats de routage réels.
+
+Les valeurs `x`,` y` et `zoom` sont identiques à celles décrites à l'adresse https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames.
+
+L'objet de réponse est soit un blob codé binaire avec un `Content-Type` de` application / x-protobuf`, soit une erreur `404`. 
+
+OSRM est codé en dur pour ne renvoyer que les tuiles à partir du niveau de zoom 12 ou supérieur (pour éviter de renvoyer accidentellement des tuiles vectorielles extrêmement grandes).
+
+GET
+
+`/tile/v1/{profile}/tile({x},{y},{zoom}).mvt`
+
+**Exemple de requête **
+
+```shell
+# This fetches a Z=13 tile for downtown San Francisco:
+curl 'http://router.project-osrm.org/tile/v1/car/tile(1310,3166,13).mvt'
+```
+
+
+
+
 
 
 
@@ -717,7 +970,7 @@ Suivant les performances de la machine, l'instance mettra entre 30  secondes et 
 
 Par défaut l'instance écoute sur le port `7878`.
 
-#### 
+
 
 #### Tester l'instance
 
@@ -725,13 +978,11 @@ Par défaut l'instance écoute sur le port `7878`.
 curl "http://localhost:7878/search?q=1+rue+de+la+paix+paris"
 ```
 
-### 
+
 
 ### Mise en oeuvre de l'API
 
 #### /search/
-
-
 
 Point d'entrée pour le géocodage.
 
@@ -903,7 +1154,7 @@ http -f POST http://localhost:7878/search/csv/ columns='voie' columns='ville' da
 http -f POST http://localhost:7878/search/csv/ columns='rue' postcode='code postal' data@path/to/file.csv
 ```
 
-### 
+
 
 #### /reverse/csv/
 
@@ -917,11 +1168,7 @@ curl -X POST -F data=@path/to/file.csv https://api-adresse.data.gouv.fr/reverse/
 
 
 
-
-
-
-
-
+<div style="page-break-after: always;"></div>
 
 # Bibliographie et liens
 
