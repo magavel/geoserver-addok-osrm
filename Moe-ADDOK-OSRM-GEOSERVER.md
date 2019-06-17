@@ -1,3 +1,9 @@
+
+
+
+
+
+
 [TOC]
 
 
@@ -6,17 +12,19 @@
 
 # Introduction
 
-## La société:
+
+
+## La société
 
 
 
-En 2016 la société Terra Nova rejoint Sysoco et est spécialisée dans les solutions de collecte d'informations à distance dans des domaines liés à la Propreté Urbaine, au Transport et à la Viabilité Hivernale. Cette société prend le nom de SYSOCO mobility.
+En 2016, la société Terra Nova rejoint Sysoco. Cette dernièret est spécialisée dans les solutions de collecte d'informations à distance dans des domaines liés à la Propreté Urbaine, au Transport et à la Viabilité Hivernale. Cette société prend le nom de SYSOCO mobility.
 
-Les solutions logicielles SYGETRACK de SYSOCO mobility sont utilisées par des clients importants comme Montpellier Méditerranée Métropole, la Métropole Aix-Marseille, Nice Côte d'Azur Métropole ou le Syndicat Mixte du Bois de l'Aumône.  La Police Municipale de la Ville de Nice figure également dans la liste de références de SYSOCO mobility ainsi que le Conseil Départemental du Loir-et-Cher. Dans la région Rhône Alpes, des clients comme les Villes de Saint-Etienne,  d'Echirolles et Chambéry Métropole utilisent quotidiennement des solutions déployées par SYSOCO mobility. Des entreprises privées comme,  SILIM & BRONZO Environnement, Derichebourg PolyUrbaine ou le Groupe Nicollin ont choisi les solutions développées et déployées par la société. 
+Les solutions logicielles SYGETRACK de SYSOCO mobility sont utilisées par des clients importants comme Montpellier Méditerranée Métropole, la Métropole Aix-Marseille, Nice Côte d'Azur Métropole ou le Syndicat Mixte du Bois de l'Aumône.  La Police Municipale de la Ville de Nice figure également dans le fichier Clients de SYSOCO mobility. Dans la région Rhône Alpes, des clients comme les Villes de Saint-Etienne,  d'Echirolles et Chambéry Métropole utilisent quotidiennement des solutions déployées par SYSOCO mobility. Des entreprises privées comme,  SILIM & BRONZO Environnement, Derichebourg PolyUrbaine ou le Groupe Nicollin ont choisi les solutions développées et déployées par la société. 
 
-SYSOCO mobility compte prés de 150 clients a travers la France.
+SYSOCO mobility compte prés de 150 clients à travers la France.
 
-Depuis mars 2019 SYSOCO mobility est intégré au sein de Vinci énergies.
+Depuis mars 2019, SYSOCO mobility est intégré au sein de Vinci énergies.
 
 SYSOCO mobility est la société au sein de Vinci qui assure la mise en oeuvre et le développement des solutions SYGETRACK. Elle est composée d'un directeur, de quatre ingénieurs développeurs, deux secrétaires qui assurent le SAV et les contrats et de deux responsables commerciaux.
 
@@ -24,11 +32,11 @@ SYSOCO mobility est la société au sein de Vinci qui assure la mise en oeuvre e
 
 ## Le logiciel
 
-Les solutions mise en œuvre par SYGETRACK permettent aux opérateurs de programmer  les tournées de ramassage des ordures ménagères. Chaque camion benne à ordures ménagères ou BOM est équipé de multiples capteurs; puces GPS, capteurs de levée de bac, lecteurs de puces RFID permettant de remonter vers les serveurs toutes les informations de poids, d'identification, de chaque mouvement de bac. De plus chaque information est géolocalisée. 
+Les solutions mises en œuvre par SYGETRACK permettent aux opérateurs de programmer les tournées de ramassage des ordures ménagères. Chaque camion benne à ordures ménagères ou BOM est équipé de multiples capteurs; puces GPS, capteurs de levée de bac, lecteurs de puces RFID permettant de remonter vers les serveurs toutes les informations de poids, d'identification, de mouvements de bac. De plus chaque information est géolocalisée. 
 
 SYGETRACK est développé en php 4 avec un framework créé par les développeurs de SYSOCO avec un serveur Web apache. La base de données est une solution firebird.
 
-La réception des informations issues des camions benne par GPRS transit par un serveur de communication développé en java en interne. 
+Les informations issues des camions benne par GPRS transitent par un serveur de communication développé en java, en interne. 
 
 ```mermaid
 graph LR
@@ -37,14 +45,14 @@ title[<u>Fonctionnement de SYGETRACK</u>]
 
 
 subgraph Serveur de comm
-	Vehicule[Vehicule 1] -- via GPRS --> comm((Serveur de <br/>Comm <br/> en java))
+	Véhicule[Vehicule 1] -- via GPRS --> comm((Serveur de <br/>Comm <br/> en java))
 
-	Vehicule2[Vehicule 2] -- via GPRS--> comm
+	Véhicule2[Vehicule 2] -- via GPRS--> comm
 
-	Vehicule3[Vehicule 3] -- via GPRS --> comm
+	Véhicule3[Vehicule 3] -- via GPRS --> comm
 
 
-comm-->reposit{Stockage des messages <br>issues des véhicules <br>sous forme .txt}
+comm-->reposit{Stockage des messages <br>issu des véhicules <br>sous forme .txt}
 end
 
 	subgraph serveur apache
@@ -68,9 +76,9 @@ reposit --Routine avec batch PHP-->svrApache
 
 
 
-SYGETRACK permet pour l'opérateur des remontées de statistiques sur l'ensemble des tournées, d'effectuer des calculs de carbone consommée pour l'établissement des taxes carbone, etc… Ces taxes carbone sont ensuite payer par l'organisme. Cela montre l'importance d'optimiser les tournées.
+SYGETRACK permet pour l'opérateur des remontées de statistiques sur l'ensemble des tournées, d'effectuer des calculs de carbone consommé pour réduire les taxes carbone, etc… Ces taxes carbone sont ensuite payées par l'organisme. Cela montre l'importance d'optimiser les tournées.
 
-Comme chaque informations est géolocalisée par une latitude et une longitude il est nécessaire d'effectuer un « reverse-geocoding » de ces positions pour retrouver une adresse avec numéro de rue, nom de rue et ville. Il existe des services payants ou gratuits qui permettent ce reverse-geocoding mais avec des limites. 
+Chaque information est géolocalisée par une latitude et une longitude, il est nécessaire d'effectuer un « reverse-geocoding » de ces positions pour retrouver une adresse avec numéro de rue, nom de rue et ville. Il existe des services payants, les services gratuits permettent aussi ce reverse-geocoding mais ont des limites. 
 
 Le gouvernement français à mis en place une API  permettant de faire du geocoding et reverse-geocoding à l'adresse suivante: 
 
@@ -81,31 +89,41 @@ Cette API est gratuite mais avec les limites suivantes:
 - L'API unitaire est disponible à hauteur de 10 appels par seconde et par adresse IP.
 - Le géocodage de masse (CSV) est disponible à hauteur d'un appel simultané par adresse IP.  
 
-SYGETRACK à besoin de retrouver plusieurs centaines d'adresses par jour. Cette solution n'est donc pas possible. Il existe aussi des sociétés privés qui vendent des services de geocoding et de geocoding inverse. C'est la solution actuelle retenue par SYGETRACK. Mais elle à un coût.
+SYGETRACK à besoin de retrouver plusieurs centaines d'adresses par jour. Cette solution n'est donc pas possible. Il existe aussi des sociétés privées qui vendent des services de geocoding et de geocoding inverse. C'est la solution actuelle retenue par SYGETRACK. Mais elle a un coût.
 
-Pour l'optimisation des tournées de ramassage SYSOCO fait appel à une société qui calcule la meilleurs tournée entre plusieurs points, c'est la société benomad:` https://benomad.com`.
+Pour l'optimisation des tournées de ramassage, SYSOCO fait appel à une société qui calcule la meilleure tournée entre plusieurs points, c'est la société benomad:` https://benomad.com`.
 
 
 
-## Présentation de la mission
+## La présentation de la mission
 
 La mission qui m'est confiée comporte deux parties. 
 
-La première partie concerne les serveurs de tuiles cartographiques. Il s'agit de faire un état de l'art des technologies existantes puis de mettre en place ce serveur.
+La première partie, concerne les serveurs de tuiles cartographiques. Il s'agit de faire un état de l'art des technologies existantes puis de mettre en place ce serveur.
 
-La deuxième partie concerne les API de **géocodage** et **routage**. Il faut après étude des meilleurs technologies du moment mettre en place ces API.
+La deuxième partie, concerne les API de **géocodage** et **routage**. Il faut, après étude des meilleures technologies actuelles, mettre en place ces API.
 
 Le géocodage consiste à affecter des [coordonnées géographiques](https://fr.wikipedia.org/wiki/Coordonnées_géographiques) ([longitude](https://fr.wikipedia.org/wiki/Longitude)/[latitude](https://fr.wikipedia.org/wiki/Latitude)) à une adresse postale. Son pendant est le géocodage inversé. Le géocodage inversé (ou en [anglais](https://fr.wikipedia.org/wiki/Anglais) : *reverse geocoding*) consiste à effectuer l'opération inverse du [géocodage](https://fr.wikipedia.org/wiki/Géocodage), c'est-à-dire d'attribuer une adresse à des [coordonnées géographiques](https://fr.wikipedia.org/wiki/Coordonnées_géographiques). L'adresse ainsi retrouvée peut être utilisée dans des applications de [géolocalisation](https://fr.wikipedia.org/wiki/Géolocalisation) capables d'indiquer l'adresse où se trouve la personne utilisatrice.
 
-Le **routage** est le mécanisme par lequel des chemins sont sélectionnés dans un [réseau](https://fr.wikipedia.org/wiki/Réseau_informatique) routier pour acheminer un voyageur d'un point de départ  vers un ou plusieurs point de destination. Il existe traditionnellement le routage entre deux points ou la routage sur une multitude de point pour organiser au mieux une tournée.
+Le **routage** est le mécanisme par lequel des chemins sont sélectionnés dans un [réseau](https://fr.wikipedia.org/wiki/Réseau_informatique) routier pour acheminer un voyageur d'un point de départ  vers un ou plusieurs points de destination. Il existe traditionnellement le routage entre deux points ou le routage sur une multitude de points pour organiser au mieux une tournée.
+
+La premiere partie du stage à duré un mois et demi. Pour cela j'ai du me plonger dans la littérature existante en géomatique pour comprendre les nombreux concepts utilisés dans ce domaine.
+
+Je suis partis une journée sur LYON au siège social de SYSOCO pour échanger avec Gabriel VIVAS membre du bureau R&D sur les bienfait de la virtualisation. 
+
+La deuxième partie à durer un mois et m'a permis de comprendre et mettre en place les API. 
+
+D'une manière générale il y a très peu de communication sur les outils existants en matière de géomatique aussi bien pour les serveurs que pour les API. Pour trouver ADDOK il m'a fallut chercher profondément dans les dossiers d'ETALAB sur GitHub.
+
+ Il m'a fallut expérimenter de nombreuses configurations pour pouvoir progresser et comprendre...
 
 <div style="page-break-after: always;"></div>
 
 # Configuration du serveur
 
-Pour créer, tester les différentes configuration il sera fait le choix d'un serveur sous  VM avec virtualBox. Cette VM sera montée sur un PC tournant sous windows 7.
+Pour créer, tester les différentes configurations, il sera fait le choix d'un serveur sous  VM avec virtualBox. Cette VM sera montée sur un PC tournant sous windows 7.
 
-Vu les besoins de mémoire la configuration minimale sera la suivante:
+Vu les besoins de mémoire, la configuration minimale sera la suivante:
 
 - disque dur de 75 Go.
 - 4 coeurs virtuels
@@ -134,17 +152,17 @@ Les prérequis logiciels sont:
 
 #  Serveur cartographique
 
- Actuellement SYSOCO utilise un serveur de tuiles cartographique ayant été mis en place il y a une dizaine d'année sous Flash/Adobe en actionscript 2. Ce serveur n'a jamais été mis à jour et se retrouve bloqué par les politiques des navigateurs internet refusant la technologie flash.
+ Actuellement SYSOCO utilise un serveur de tuiles cartographiques ayant été mis en place il y a une dizaine d'années sous Flash/Adobe en actionscript 2. Ce serveur n'a jamais été mis à jour et se retrouve bloqué par les politiques des navigateurs internet refusant la technologie flash.
 
-SYSOCO utilise aussi un serveur de tuiles cartographique sur internet mise en place par OpenStreetMap et soumis à des mise à jour non maitrisée par SYSOCO.
+SYSOCO utilise aussi un serveur de tuiles cartographiques sur Internet mis en place par OpenStreetMap et soumis à des mises à jour non maitrisées par SYSOCO.
 
 SYSOCO désire maitriser les mises à jour du serveur en mettant en place son propre serveur de tuiles cartographiques.
 
-Après recherche des différentes technologies existantes pour mettre en place un serveur de tuiles cartographiques il s'avère que deux serveurs dominent le marché open source des serveurs cartographiques: Mapserver et Geoserver.
+Après recherche des différentes technologies existantes pour mettre en place un serveur de tuiles cartographiques, il s'avère que deux serveurs dominent le marché open source des serveurs cartographiques: Mapserver et Geoserver.
 
-Mapserver ne possède pas d'interface graphique et l'intégralité de la configuration se fait avec des fichiers.map.
+Mapserver ne possède pas d'interface graphique et l'intégralité de la configuration se fait avec des fichiers`.map`.
 
-Geoserver se configure grâce à une interface graphique ou l'on peut mettre en place les différentes services avec leurs sources de données. Geoserver est écrit en java et nécessite l'installation d'un serveur TOMCAT.
+Geoserver se configure grâce à une interface graphique où l'on peut mettre en place les différents services avec leurs sources de données. Geoserver est écrit en java et nécessite l'installation d'un serveur TOMCAT.
 
 La difficulté sur ces deux serveurs est de mettre en place des fichiers de configuration de styles permettant la visualisation des informations cartographiques aux couleurs habituelles pour les clients, à savoir OpenStreetMap.
 
@@ -152,7 +170,9 @@ Ces deux serveurs sont connectés à un serveur de base de données.
 
 En terme de gestion de la données physique, nous utiliserons un serveur de base de données Postgresql avec PostGis. Le plugin Postgis est doté de toutes les fonctionnalités d'un système d'information géographique (SIG). Postgresql+Postgis est basé sur une architecture client-serveur accessible depuis le web grâce à pgAdmin. 
 
-Pour télécharger les données issue de OpenStreetMap il est nécessaire d'utiliser un outils supplémentaire: **osm2pgsql**
+Pour télécharger les données issues de OpenStreetMap, il est nécessaire d'utiliser un outil supplémentaire: **osm2pgsql**
+
+<div style="page-break-after: always;"></div>
 
 ## Installation de postgresql
 
@@ -202,6 +222,8 @@ sudo -u postgres psql -c "CREATE EXTENSION PostGIS; CREATE EXTENSION PostGis_top
 
 Cette extension permettra de mettre en place les différentes tables
 
+<div style="page-break-after: always;"></div>
+
 ## Installation d'Osm2pgsql
 
 **Osm2pgsql** est un outil de chargement de données **OpenStreetMap** dans une base de données **PostgreSQL** / **PostGIS** appropriée pour des applications telles que le rendu dans une carte.
@@ -210,13 +232,13 @@ Pour télécharger les données OSM dans la base de données postGIS voir le lie
 
 ### Caractéristiques
 
-- ​     Convertit les fichiers OSM en une base de données PostgreSQL
+- ​    La conversion des fichiers OSM en une base de données PostgreSQL
 - ​     La conversion des étiquettes en colonnes est configurable dans le fichier de style
-- ​     Capable de lire les fichiers .gz, .bz2, .pbf et .osm directement
-- ​     Peut appliquer des différences pour maintenir la base de données à jour
+- ​     La capacité de lire les fichiers .gz, .bz2, .pbf et .osm directement
+- ​     Pouvoir appliquer des différences pour maintenir la base de données à jour
 - ​     Soutenir le choix de la projection en sortie
-- ​     Noms de table configurables
-- ​     Prise en charge du type de champ hstore pour stocker l'ensemble complet de balises dans un champ de base de données si nécessaire
+- ​     La configuration des noms de table
+- ​     La prise en charge du type de champ hstore pour stocker l'ensemble complet de balises dans un champ de base de données si nécessaire
 
 ### Installation
 
@@ -238,7 +260,7 @@ apt-get install osm2pgsql
 
 
 
-Pour installer osm2pgsql sous Ubuntu en compilant les sources il faut télécharger sur github la dernière version :
+Pour installer osm2pgsql sous Ubuntu en compilant les sources, il faut télécharger sur github la dernière version :
 
 ```shell
 git clone git://github.com/openstreetmap/osm2pgsql.git
@@ -367,17 +389,51 @@ Où
 - -U postrgres est le nom d'utilisateur
 - _C = <cache size>  vaut 75% de la mémoire en MiB, avec un maximum de 30000. 20000 semble correct.
 
-
+<div style="page-break-after: always;"></div>
 
 ## Installation de geoserver
 
 
 
+1. Être sûr d'avoir Java Runtime Environment (JRE) installé sur le système. GeoServer requière un environnement **Java 8**. 
+
+2. Sélectionner la version stable de geoserver et la télécharger
+
+3. Télécharger l'archive et dézipper dans le repertoire suivant (recommandé): `/usr/share/geoserver`.
+
+4. Ajouter une variable d'environnement  avec la commande suivante:
+
+   ```shell
+   echo "export GEOSERVER_HOME=/usr/share/geoserver" >> ~/.profile
+   . ~/.profile
+   ```
+
+   
+
+5. Attention aux droits sur le répertoire :
+
+   ```shell
+   sudo chown -R USER_NAME /usr/share/geoserver/
+   ```
+
+   
+
+6. Démarrer GeoServer en executant le script `startup.sh`:
+
+   ```shell
+   cd chemin/vers/geoserver/bin
+   sh startup.sh
+   ```
+
+   
+
+7. Dans un navigateur aller à `http://localhost:8080/geoserver`.
 
 
 
+Toute la difficulté ensuite est de configurer les fichiers de styles SLD. Chaque niveau de zoom fait l'objet d'une `layer`.
 
-
+Dans chaque` layer` il faudra paramétrer chaque élément pour le faire apparaitre ou non en fonction du zoom.
 
 <div style="page-break-after: always;"></div>
 
@@ -385,7 +441,7 @@ Où
 
 ## Introduction
 
-Il existe un certain nombre de site proposant des API de routing ou geocoding sur internet. Les services gratuits sont bien souvent assortis de limite ne permettant pas d'utiliser ces services de manière industrielle. Quant aux services sans limite leur coût est bien souvent très important.
+Il existe un certain nombre de sites proposant des API de routing ou geocoding sur Internet. Les services gratuits sont bien souvent assortis de limites ne permettant pas d'utiliser ces services de manière industrielle. Quant aux services sans limite, leur coût est bien souvent très important.
 
 Toutes les routes des API sont testées avec le logiciel POSTMAN qui est un client WEB/API. 
 
@@ -393,13 +449,22 @@ Toutes les routes des API sont testées avec le logiciel POSTMAN qui est un clie
 
 ## Mise en place des API avec Docker
 
+Le choix sera d'utiliser docker et son principe de container. Les différentes API utilisés sont maintenant toutes *dockerisée* par leurs concepteurs.
+
+ L'objectif d'un conteneur est le même que pour un[serveur dédié virtuel :
+
+	- héberger des services sur un même serveur physique tout en les isolant  les uns des autres. Un conteneur est 		cependant moins figé qu'une machine virtuelle en matière de taille de disque et de ressources allouées.  
+
+Un conteneur permet d'isoler chaque service : le serveur web, la base de données, une application peuvent être exécutés de façon indépendante  dans leur conteneur dédié, contenant uniquement les dépendances  nécessaires. Chaque conteneur est relié par des réseaux virtuels. Il est possible de monter des volumes de disque de la machine hôte dans un 
+conteneur.
+
 
 
 ## Le routing
 
 ### Les algorithmes utilisés
 
-De nombreux algorithmes de recherche de chemin dans un graphe existent, et leur utilisation se limite pas à du calcul d'itinéraire routier. Une application fréquente de ces algorithmes est par exemple le routage dans un réseau informatique, pour sélectionner les meilleurs chemins permettant d'acheminer des données. Plusieurs algorithmes courants de recherche du plus court chemin dans un graphe sont présentés ci-après.
+De nombreux algorithmes de recherche de chemin dans un graphe existent, et leur utilisation ne se limite pas à du calcul d'itinéraire routier. Une application fréquente de ces algorithmes est par exemple le routage dans un réseau informatique, pour sélectionner les meilleurs chemins permettant d'acheminer des données. Plusieurs algorithmes courants de recherche du plus court chemin dans un graphe sont présentés ci-après.
 
 
 
@@ -411,31 +476,21 @@ L'algorithme A* est un algorithme de recherche de chemin dans un [graphe](https:
 
 #### Dijkstra
 
-L'algorithme de Dijkstra permet de résoudre un [problème algorithmique](https://fr.wikipedia.org/wiki/Problème_algorithmique) : le [problème du plus court chemin](https://fr.wikipedia.org/wiki/Problème_du_plus_court_chemin). Ce problème a plusieurs variantes. La plus simple est la suivante : étant donné un [graphe non-orienté](https://fr.wikipedia.org/wiki/Graphe_non-orienté), dont les arêtes sont munies de poids, et deux sommets de ce graphe, trouver un [chemin](https://fr.wikipedia.org/wiki/Chaîne_(théorie_des_graphes))
-
-entre les deux sommets dans le graphe, de poids minimum. L'algorithme 
-
-de Dijkstra permet de résoudre un problème plus général : le graphe peut
-
-être [orienté](https://fr.wikipedia.org/wiki/Graphe_orienté),
-
-et l'on peut désigner un unique sommet, et demander d'avoir la liste 
-
-des plus courts chemins pour tous les autres nœuds du graphe.    
+L'algorithme de Dijkstra permet de résoudre un [problème algorithmique](https://fr.wikipedia.org/wiki/Problème_algorithmique) : le [problème du plus court chemin](https://fr.wikipedia.org/wiki/Problème_du_plus_court_chemin). Ce problème a plusieurs variantes. La plus simple est la suivante : étant donné un [graphe non-orienté](https://fr.wikipedia.org/wiki/Graphe_non-orienté), dont les arêtes sont munies de poids, et deux sommets de ce graphe, trouver un [chemin](https://fr.wikipedia.org/wiki/Chaîne_(théorie_des_graphes)) entre les deux sommets dans le graphe, de poids minimum. L'algorithme de Dijkstra permet de résoudre un problème plus général : le graphe peut être [orienté](https://fr.wikipedia.org/wiki/Graphe_orienté), et l'on peut désigner un unique sommet, et demander d'avoir la liste des plus courts chemins pour tous les autres nœuds du graphe.    
 
 
 
 ### Les outils
 
-Pour le routing une bibliothèque est plébiscité par l'ensemble de la communauté des utilisateurs des services géographiques. Il s'agit d'OSRM. 
+Pour le routing, une bibliothèque est plébiscitée par l'ensemble de la communauté des utilisateurs des services géographiques. Il s'agit d'OSRM. 
 
 L'**Open Source Routing Machine** ou **OSRM** est l'implémentation [C++](https://fr.wikipedia.org/wiki/C%2B%2B) d'un moteur de recherche d'itinéraire haute performance afin d'obtenir les [plus courts chemins](https://fr.wikipedia.org/wiki/Problèmes_de_cheminement) dans un [réseau routier](https://fr.wikipedia.org/wiki/Réseau_routier).  OSRM est en développement actif. Sur Github le dernier commit date de 13 jours. OSRM est actuellement maintenu par [Dennis Luxen](http://algo2.iti.kit.edu/english/luxen.php) docteur en recherche informatique au sein du KIT le Karlruhe Institute of Technology.
 
 Ce moteur de routage est prévu de fonctionner avec les données de OpenStreetMap.
 
-Les services suivants sont disponible via une API en HTTP:
+Les services suivants sont disponibles via une API en HTTP:
 
-- Nearest - Enregistre les coordonnées sur le réseau de rues et renvoie les correspondances les plus proches. 
+- Nearest - Renvoie les correspondances les plus proches 
 - Route - Trouve l'itinéraire le plus rapide entre les coordonnées 
 - Table - Calcule la durée ou les distances de l'itinéraire le plus rapide entre toutes les paires de coordonnées fournies 
 - Trip - Résout le problème du voyageur de commerce en utilisant une heuristique gloutonne 
@@ -443,13 +498,13 @@ Les services suivants sont disponible via une API en HTTP:
 
 
 
-Contrairement à la plupart des serveurs de routage, OSRM n'utilise pas l'algorithme  [A*](http://en.wikipedia.org/wiki/A*_search_algorithm)  pour calculer le plus court chemin, mais mais le théorème de la contraction des hiérarchies.  Il en résulte des temps de requêtes très rapides, généralement  inférieure à 1 ms pour les ensembles de données comme l'Europe, faisant  OSRM un bon candidat pour les applications et sites sensibles routage  sur le Web. 
+Contrairement à la plupart des serveurs de routage, OSRM n'utilise pas l'algorithme  [A*](http://en.wikipedia.org/wiki/A*_search_algorithm)  pour calculer le plus court chemin, mais le théorème de la contraction des hiérarchies.  Il en résulte des temps de requête très rapides, généralement  inférieure à 1 ms pour les ensembles de données comme l'Europe, faisant  OSRM un bon candidat pour les applications et sites sensibles routage  sur le Web. 
 
 ### Installation de OSRM
 
-Première chose à faire pour tester OSRM il faut télécharger des données de open street map au format pbf. 
+Première chose à faire pour tester OSRM, il faut télécharger des données de open street map au format pbf. 
 
-Ces données sont librement téléchargeable sur le site de 
+Ces données sont librement téléchargeables sur le site de 
 
 [`http://download.geofabrik.de/`](http://download.geofabrik.de/)
 
@@ -461,21 +516,21 @@ wget http://download.geofabrik.de/europe/france-latest.osm.pbf
 
 
 
-OSRM ayant était conteneurisée avec docker il faut initialiser un conteneur docker avec la commande suivante:
+OSRM ayant était conteneurisée avec docker, il faut initialiser un conteneur docker avec la commande suivante:
 
 ```shell
 docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/france-latest.osm.pbf
 ```
 
-Cette commande va extraire du fichier natif de OSM les fichiers contenant les notes, way et relations permettant d'effectuer le calcul de routing.
+Cette commande va extraire du fichier natif de OSM, les fichiers contenant les notes, way et relations permettant d'effectuer le calcul de routing.
 
-Cette extraction se fait en utilisant un profil de véhicule . Par défaut il existe trois profiles dans OSRM:
+Cette extraction se fait en utilisant un profil de véhicule . Par défaut il existe trois profils dans OSRM:
 
 - Véhicule standard (voiture)
 - Piéton
 - Cycliste
 
-Ces profiles sont utilisé lors de préprossessing c'est à dire lors de l'extraction des données du fichier OSM. C'est profiles sont écrit en LUA car ce sont de véritables script de configuration. Dans ces profiles les poids, vitesses et tailles des véhicules peuvent être particularisés.
+Ces profils sont utilisé lors de préprossessing c'est à dire lors de l'extraction des données du fichier OSM. Ces profils sont écrits en LUA car ce sont de véritables scripts de configuration. Dans ces profils les poids, vitesses et tailles des véhicules peuvent être particularisés.
 
 
 
@@ -483,7 +538,7 @@ L'opération d'extraction nécessite beaucoup de mémoire et de temps.
 
 A titre d'exemple pour le fichier paca-latest.osm.pbf de 260 Mo le serveur consomme en RAM: *1 Go*
 
-Apres l'extraction on exécute:
+Apres l'extraction, on exécute:
 
 ```shell
 docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-partition /data/france-latest.osrm
@@ -505,7 +560,7 @@ docker run -t -i -p 5000:5000 -v "${PWD}:/data" osrm/osrm-backend osrm-routed --
 
 
 
-Une fois le serveur en fonction on peut tester une requête GET avec PostMan:
+Une fois le serveur en fonction, on peut tester une requête GET avec PostMan:
 
 ```shell
 http://localhost:5000/route/v1/driving/5.9501,43.1194;5.9655,43.113?steps=true&geometries=geojson
@@ -633,7 +688,7 @@ GET/{service}/{version}/{profile}/{coordinates}[.{format}]?option=value&option=v
 
 
 
-#### Requête:
+#### Requête
 
 
 
@@ -647,9 +702,9 @@ GET/{service}/{version}/{profile}/{coordinates}[.{format}]?option=value&option=v
 
 
 
+<div style="page-break-after: always;"></div>
 
-
-#### Réponses:
+#### Réponses
 
 Voici les réponses possibles:
 
@@ -669,13 +724,13 @@ Voici les réponses possibles:
 
 
 
-#### Les Services rendu par l'API
+#### Les Services rendus par l'API
 
 
 
-##### Nearest:
+##### /nearest/
 
-A partir d'une coordonnées en latitude et longitude OSRM recherche et renvoie les n correspondances les plus proche. 
+A partir d'une coordonnée en latitude et longitude, OSRM recherche et renvoie les n correspondances les plus proches. 
 
 Le couple `coordinates` prend uniquement comme valeur `{longitude},{latitude}`.
 
@@ -752,7 +807,7 @@ curl 'http://router.project-osrm.org/nearest/v1/driving/13.388860,52.517037?numb
 
 
 
-##### Route
+##### /route/
 
 Trouver la route la plus rapide .
 
@@ -760,7 +815,7 @@ Les différentes options possibles sont:
 
 | Option              | Valeurs                                                      | Description                                                  |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| alternatives        | `true` ,  `false`  (par défaut), or Number                   | Cherche des routes alternatives. Si  `alternatives=n`  la recherche renvoie le nombre de route spécifié. |
+| alternatives        | `true` ,  `false`  (par défaut), or Number                   | Cherche des routes alternatives. Si  `alternatives=n`  la recherche renvoie le nombre de routes spécifiées. |
 | steps               | `true` ,  `false`  (défaut)                                  | Retourne pour chaque segment toutes les étapes en latitude et longitude |
 | annotations         | `true` ,  `false`  (défaut),  `nodes` ,  `distance` ,  `duration` ,  `datasources` ,  `weight` ,  `speed` | Retourne des metadata supplémentaire pour chaque segment.    |
 | geometries          | `polyline`  (défaut),  `polyline6` ,  `geojson`              | Format des géometries                                        |
@@ -791,29 +846,29 @@ curl 'http://router.project-osrm.org/route/v1/driving/13.388860,52.517037;13.397
 
 
 
-##### Trip
+##### /trip/
 
-Le service **TRIP** permet de résoudre le problème du voyageur de commerce. Il est a noter que toutes les coordonnées d'entrée doivent être connectées pour que le service de déplacement fonctionne
+Le service **TRIP** permet de résoudre le problème du voyageur de commerce. Il est à noter que toutes les coordonnées d'entrée doivent être connectées pour que le service de déplacement fonctionne
 
-En plus des options générales  les options suivantes sont supportée par le service `TRIP`:
+En plus des options générales,  les options suivantes sont supportées par le service `TRIP`:
 
 | Option      | Values                                                       | Description                                                  |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | roundtrip   | `true`  (défaut),  `false`                                   | L'itinéraire retourné est un aller-retour (l'itinéraire retourne au premier emplacement) |
-| source      | `any`  (défaut),  `first`                                    | L'itinéraire retourné commence à n'importe quelle coordonnées `any`ou à lapremière coordonnée `first` |
+| source      | `any`  (défaut),  `first`                                    | L'itinéraire retourné commence à n'importe quelles coordonnées `any`ou à la première coordonnée `first` |
 | destination | `any`  (défaut),  `last`                                     | L'itinéraire retourné se termine à la coordonnée `any` ou` last` |
 | steps       | `true` ,  `false`  (défaut)                                  | Pour chaque segment retourne les instructions                |
-| annotations | `true` ,  `false`  (défaut),  `nodes` ,  `distance` ,  `duration` ,  `datasources` ,  `weight` ,  `speed` | Retourne des metadata supplémentaire pour chaque segment.    |
-| geometries  | `polyline`  (default),  `polyline6` ,  `geojson`             | Format des géometries.                                       |
+| annotations | `true` ,  `false`  (défaut),  `nodes` ,  `distance` ,  `duration` ,  `datasources` ,  `weight` ,  `speed` | Retourne des metadata supplémentaires pour chaque segment.   |
+| geometries  | `polyline`  (default),  `polyline6` ,  `geojson`             | Format des géométries.                                       |
 | overview    | `simplified`  (default),  `full` ,  `false`                  | Affiche un paramètre supplémentaire d'affichage en fonction du zoom. |
 
 **Imposer les points de départ et d'arrivé**
 
-Il est possible de définir explicitement les coordonnées de début ou de fin de la tournée. Lorsque `source` est défini sur `first`, la première coordonnée est utilisée comme coordonnée de début du trajet dans la sortie. Lorsque la destination est définie sur `last`, la dernière coordonnée sera utilisée comme destination dans la sortie renvoyée. Si on spécifie`any`, n'importe laquelle des coordonnées peut être utilisée comme première ou dernière coordonnée dans la sortie.
+Il est possible de définir explicitement les coordonnées de début ou de fin de la tournée. Lorsque `source` est défini sur `first`, la première coordonnée est utilisée comme coordonnée de début du trajet. Lorsque la destination est définie sur `last`, la dernière coordonnée sera utilisée comme destination. Si on spécifie`any`, n'importe laquelle des coordonnées peut être utilisée comme première ou dernière coordonnée dans la sortie.
 
 Cependant, si `source=any&destination=any` la tournée débutera à la première coordonnée par défaut.
 
-Actuellement toutes les combinaison de  `roundtrip`, `source` and `destination` ne sont pas supportées. 
+Actuellement toutes les combinaisons de  `roundtrip`, `source` and `destination` ne sont pas supportées. 
 
 Seules les combinaisons suivantes peuvent être utilisées:
 
@@ -859,11 +914,59 @@ curl 'http://router.project-osrm.org/trip/v1/driving/13.388860,52.517037;13.3976
 
 
 
-### Tile service
+#####  Tile service
 
-Ce service génère des [tuiles vectorielles Mapbox] (https://www.mapbox.com/developers/vector-tiles/) qui peuvent être visualisées avec une bibliothèque prenant en charge les tuiles vectorielles. Les tuiles contiennent des géométries de route et des métadonnées qui peuvent être utilisées pour afficher le graphe de routage. Les mosaïques sont générées directement à partir des données en mémoire. Elles sont donc synchronisées avec les résultats de routage réels.
+Ce service génère des [tuiles vectorielles Mapbox] (https://www.mapbox.com/developers/vector-tiles/) qui peuvent être visualisées avec une bibliothèque prenant en charge les tuiles vectorielles. Les tuiles contiennent des géométries de route et des métadonnées qui peuvent être utilisées pour afficher le graphe de routage. Les mosaïques sont générées directement à partir des données en mémoire. Elles sont donc synchronisées avec les résultats de routage réel.
 
-Les valeurs `x`,` y` et `zoom` sont identiques à celles décrites à l'adresse https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames.
+Les valeurs `x`,` y` et `zoom` sont calculé de la manière suivante:
+
+**Les niveau de zoom**
+
+| Niveau de zoom | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| 0              | 1 seul pavé couvre l'ensemble du monde (à l'exception des calottes voisines des pôles géographiques) |
+| 1              | 2 × 2 pavés                                                  |
+| 2              | 4 × 4 pavés                                                  |
+| n              | 2*n* × 2*n* pavés                                            |
+| 17             | Zoom maximum pour Osmarender                                 |
+| 18             | Zoom maximum pour Mapnik (sur le serveur OSM) ; certains serveurs  peuvent zoomer encore au delà en produisant des pavés à la demande. |
+
+**Calcul de x et y**
+
+- *x*  va de 0 (le bord gauche est à la longitude 180° Ouest) jusqu'à  $2 ^{zoom}  -1$ (le bord droit est à la longitude 180° Est)
+- *y*  va de 0 (le bord supérieur est à la latitude 85,0511° Nord) jusqu'à $2^{zoom} -1$ (le coin inférieur est à la latitude 85,0511° Sud) **dans une projection Mercator**
+
+
+
+
+$$
+x= \frac{lon + 180}{360} 2^z\\
+\\
+\\
+y= 1- \frac{ln(tan(lat \frac{\pi}{180})+\frac{1}{cos(lat \frac{\pi}{180})})}{\pi} 2^{z—1}\\
+$$
+
+
+```javascript
+function long2tileX(lon, zoom) {
+   return Math.floor(
+     (lon + 180) / 360
+     * Math.pow(2, zoom)
+   );
+ }
+ function lat2tileY(lat, zoom)  {
+   return Math.floor(
+     (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2
+     * Math.pow(2, zoom)
+   );
+ }
+```
+
+
+
+
+
+**La réponse**
 
 L'objet de réponse est soit un blob codé binaire avec un `Content-Type` de` application / x-protobuf`, soit une erreur `404`. 
 
@@ -888,24 +991,22 @@ curl 'http://router.project-osrm.org/tile/v1/car/tile(1310,3166,13).mvt'
 
 ## Le geocoding
 
-Le gouvernement français mets à la disposition des développeurs un répertoire github (https://github.com/etalab) dans lequel on trouvera l'ensemble des produits et API développé par ETALAB.
+Le gouvernement français met à la disposition des développeurs un répertoire github (https://github.com/etalab) dans lequel on trouvera l'ensemble des produits et API développés par ETALAB.
 
-**La mission Etalab** fait  partie de la Direction interministérielle du numérique et du système  d'information et de communication de l'Etat (DINSIC), dont les missions  et l'organisation sont fixées par les [décrets du 20 Novembre 2017. ](http://www.modernisation.gouv.fr/documentation/decrets/une-nouvelle-organisation-pour-la-transformation-publique-et-numerique-de-letat-decrets-du-20-novembre-2017)
+**La mission Etalab** fait  partie de la Direction interministérielle du numérique et du système  d'information et de communication de l'Etat (DINSIC), dont les missions et l'organisation sont fixées par les décrets du 20 Novembre 2017. 
 
-**Etalab** est une [mission](https://fr.wikipedia.org/wiki/Missions_et_programmes) placée au sein de la [Direction interministérielle du numérique et du système d'information et de communication de l'État](https://fr.wikipedia.org/wiki/Direction_interministérielle_du_numérique_et_du_système_d'information_et_de_communication_de_l'État) (DINSIC).    
+
 
 Etalab  améliore le service public :   
 
-- en menant une politique de la donnée (ouverture et  partage des  données publiques ou "open data", exploitation des données et  intelligence artificielle...). Etalab met notamment en œuvre les  missions de l'Administrateur général des données (AGD), fixées par le  décret n° 2014-1050 du 16 septembre 2014[1](https://fr.wikipedia.org/wiki/Etalab#cite_note-1).
-- en promouvant  une action publique plus transparente et collaborative grâce au numérique, pour tendre vers un [gouvernement ouvert](https://fr.wikipedia.org/wiki/Gouvernement_ouvert).
+- en menant une politique de la donnée (ouverture et  partage des données publiques ou "open data", exploitation des données et  intelligence artificielle...).
+- en promouvant  une action publique plus transparente et collaborative grâce au numérique, pour tendre vers un gouvernement ouvert.
 
-Etalab développe et maintient le portail des données ouvertes du gouvernement français [data.gouv.fr](https://fr.wikipedia.org/wiki/Data.gouv.fr). 
+Etalab développe et maintient le portail des données ouvertes du gouvernement français `data.gouv.fr`. 
 
-Etalab contribue à la promotion des  sciences des données (« datasciences ») et de l'intelligence  artificielle dans la sphère publique, en menant [des  projets, en facilitant l'expérimentation et le partage de bonnes  pratiques, en animant des communautés de datascientists et porteurs de  projet d'IA.](https://www.etalab.gouv.fr/datasciences-et-intelligence-artificielle)
+Etalab contribue à la promotion des  sciences des données (« datasciences ») et de l'intelligence  artificielle dans la sphère publique, en menant des  projets, en facilitant l'expérimentation et le partage de bonnes  pratiques, en animant des communautés de datascientists et porteurs de  projet d'IA.
 
-
-
-Pour palier aux limites imposées sur leur API ETALAB propose en téléchargement libre le code source de leur moteur de coding à l'adresse suivante: 
+Pour palier aux limites imposées sur leur API, ETALAB propose en téléchargement libre le code source de leur moteur de coding à l'adresse suivante: 
 
 `https://github.com/etalab/addok`
 
@@ -922,11 +1023,11 @@ Addok fonctionne avec Redis en back-end.
 ### Pré-requis
 
 - Au moins 6 Go de RAM disponible (à froid)
-- 8 Go d'espace disque disponible (hors logs)Installer une instance avec les données de la Base Adresse Nationale en ODbL
+- 8 Go d'espace disque disponible (hors logs) pour installer une instance avec les données de la Base Adresse Nationale en ODbL
 
 ### Installation
 
-Tout d'abord il faut se placer dans un dossier de travail par exemple `ban`.
+Tout d'abord, il faut se placer dans un dossier de travail par exemple `ban`.
 
 ```shell
 mkdir ban && cd ban
@@ -945,7 +1046,7 @@ mkdir addok-data
 unzip -d addok-data ban_odbl_addok-latest.zip
 ```
 
-Télécharger le fichier Compose
+Télécharger le fichier docker-compose
 
 ```shell
 wget https://raw.githubusercontent.com/etalab/addok-docker/master/docker-compose.yml
@@ -1116,13 +1217,13 @@ Les paramètres **lat** et **lon** sont obligatoires:
 curl https://api-adresse.data.gouv.fr/reverse/?lon=2.37&lat=48.357
 ```
 
-Le paramètre **type** permet forcer le type de retour:
+Le paramètre **type** permet de forcer le type de retour:
 
 ```
 curl https://api-adresse.data.gouv.fr/reverse/?lon=2.37&lat=48.357&type=street
 ```
 
-Même format de réponse que pour le point d'entrée [**/search/**](https://adresse.data.gouv.fr/api#search).
+Même format de réponse que pour le point d'entrée **/search/**.
 
 #### /search/csv/
 
@@ -1130,13 +1231,13 @@ Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.
 
 Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre **data**:
 
-```
+```shell
 curl -X POST -F data=@path/to/file.csv https://api-adresse.data.gouv.fr/search/csv/
 ```
 
 Par  défaut, toutes les colonnes sont concaténées pour constituer l'adresse  qui sera géocodée. On peut définir les colonnes à utiliser via de  multiples paramètres **columns**:
 
-```
+```shell
 curl -X POST -F data=@path/to/file.csv -F columns=voie -F columns=ville https://api-adresse.data.gouv.fr/search/csv/
 ```
 
@@ -1182,7 +1283,7 @@ Editions papier
 
   
 
-Sites internets
+Sites Internet
 
 - http://project-osrm.org/
 - https://adresse.data.gouv.fr/
