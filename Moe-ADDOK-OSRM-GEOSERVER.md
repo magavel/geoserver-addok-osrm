@@ -10,113 +10,6 @@
 
 <div style="page-break-after: always;"></div>
 
-# Introduction
-
-
-
-## La société
-
-
-
-En 2016, la société Terra Nova rejoint Sysoco. Cette dernièret est spécialisée dans les solutions de collecte d'informations à distance dans des domaines liés à la Propreté Urbaine, au Transport et à la Viabilité Hivernale. Cette société prend le nom de SYSOCO mobility.
-
-Les solutions logicielles SYGETRACK de SYSOCO mobility sont utilisées par des clients importants comme Montpellier Méditerranée Métropole, la Métropole Aix-Marseille, Nice Côte d'Azur Métropole ou le Syndicat Mixte du Bois de l'Aumône.  La Police Municipale de la Ville de Nice figure également dans le fichier Clients de SYSOCO mobility. Dans la région Rhône Alpes, des clients comme les Villes de Saint-Etienne,  d'Echirolles et Chambéry Métropole utilisent quotidiennement des solutions déployées par SYSOCO mobility. Des entreprises privées comme,  SILIM & BRONZO Environnement, Derichebourg PolyUrbaine ou le Groupe Nicollin ont choisi les solutions développées et déployées par la société. 
-
-SYSOCO mobility compte prés de 150 clients à travers la France.
-
-Depuis mars 2019, SYSOCO mobility est intégré au sein de Vinci énergies.
-
-SYSOCO mobility est la société au sein de Vinci qui assure la mise en oeuvre et le développement des solutions SYGETRACK. Elle est composée d'un directeur, de quatre ingénieurs développeurs, deux secrétaires qui assurent le SAV et les contrats et de deux responsables commerciaux.
-
-
-
-## Le logiciel
-
-Les solutions mises en œuvre par SYGETRACK permettent aux opérateurs de programmer les tournées de ramassage des ordures ménagères. Chaque camion benne à ordures ménagères ou BOM est équipé de multiples capteurs; puces GPS, capteurs de levée de bac, lecteurs de puces RFID permettant de remonter vers les serveurs toutes les informations de poids, d'identification, de mouvements de bac. De plus chaque information est géolocalisée. 
-
-SYGETRACK est développé en php 4 avec un framework créé par les développeurs de SYSOCO avec un serveur Web apache. La base de données est une solution firebird.
-
-Les informations issues des camions benne par GPRS transitent par un serveur de communication développé en java, en interne. 
-
-```mermaid
-graph LR
-
-title[<u>Fonctionnement de SYGETRACK</u>]
-
-
-subgraph Serveur de comm
-	Véhicule[Vehicule 1] -- via GPRS --> comm((Serveur de <br/>Comm <br/> en java))
-
-	Véhicule2[Vehicule 2] -- via GPRS--> comm
-
-	Véhicule3[Vehicule 3] -- via GPRS --> comm
-
-
-comm-->reposit{Stockage des messages <br>issu des véhicules <br>sous forme .txt}
-end
-
-	subgraph serveur apache
-	
-	bdd1{Base de données client 1} --> svrApache((Serveur Apache SYGETRACK))
-
-	bdd2{Base de données client 2} --> svrApache
-
-	bdd3{Base de données client 3} --> svrApache
-
-	end
- 
-reposit --Routine avec batch PHP-->svrApache
-
-
-     classDef green fill:#9f6,stroke:#333,stroke-width:2px;
-     classDef orange fill:#f96,stroke:#333,stroke-width:4px;
-     class svrApache green
-     class comm orange
-```
-
-
-
-SYGETRACK permet pour l'opérateur des remontées de statistiques sur l'ensemble des tournées, d'effectuer des calculs de carbone consommé pour réduire les taxes carbone, etc… Ces taxes carbone sont ensuite payées par l'organisme. Cela montre l'importance d'optimiser les tournées.
-
-Chaque information est géolocalisée par une latitude et une longitude, il est nécessaire d'effectuer un « reverse-geocoding » de ces positions pour retrouver une adresse avec numéro de rue, nom de rue et ville. Il existe des services payants, les services gratuits permettent aussi ce reverse-geocoding mais ont des limites. 
-
-Le gouvernement français à mis en place une API  permettant de faire du geocoding et reverse-geocoding à l'adresse suivante: 
-
-​		`https://adresse.data.gouv.fr/api`.
-
-Cette API est gratuite mais avec les limites suivantes:
-
-- L'API unitaire est disponible à hauteur de 10 appels par seconde et par adresse IP.
-- Le géocodage de masse (CSV) est disponible à hauteur d'un appel simultané par adresse IP.  
-
-SYGETRACK à besoin de retrouver plusieurs centaines d'adresses par jour. Cette solution n'est donc pas possible. Il existe aussi des sociétés privées qui vendent des services de geocoding et de geocoding inverse. C'est la solution actuelle retenue par SYGETRACK. Mais elle a un coût.
-
-Pour l'optimisation des tournées de ramassage, SYSOCO fait appel à une société qui calcule la meilleure tournée entre plusieurs points, c'est la société benomad:` https://benomad.com`.
-
-
-
-## La présentation de la mission
-
-La mission qui m'est confiée comporte deux parties. 
-
-La première partie, concerne les serveurs de tuiles cartographiques. Il s'agit de faire un état de l'art des technologies existantes puis de mettre en place ce serveur.
-
-La deuxième partie, concerne les API de **géocodage** et **routage**. Il faut, après étude des meilleures technologies actuelles, mettre en place ces API.
-
-Le géocodage consiste à affecter des [coordonnées géographiques](https://fr.wikipedia.org/wiki/Coordonnées_géographiques) ([longitude](https://fr.wikipedia.org/wiki/Longitude)/[latitude](https://fr.wikipedia.org/wiki/Latitude)) à une adresse postale. Son pendant est le géocodage inversé. Le géocodage inversé (ou en [anglais](https://fr.wikipedia.org/wiki/Anglais) : *reverse geocoding*) consiste à effectuer l'opération inverse du [géocodage](https://fr.wikipedia.org/wiki/Géocodage), c'est-à-dire d'attribuer une adresse à des [coordonnées géographiques](https://fr.wikipedia.org/wiki/Coordonnées_géographiques). L'adresse ainsi retrouvée peut être utilisée dans des applications de [géolocalisation](https://fr.wikipedia.org/wiki/Géolocalisation) capables d'indiquer l'adresse où se trouve la personne utilisatrice.
-
-Le **routage** est le mécanisme par lequel des chemins sont sélectionnés dans un [réseau](https://fr.wikipedia.org/wiki/Réseau_informatique) routier pour acheminer un voyageur d'un point de départ  vers un ou plusieurs points de destination. Il existe traditionnellement le routage entre deux points ou le routage sur une multitude de points pour organiser au mieux une tournée.
-
-La premiere partie du stage à duré un mois et demi. Pour cela j'ai du me plonger dans la littérature existante en géomatique pour comprendre les nombreux concepts utilisés dans ce domaine.
-
-Je suis partis une journée sur LYON au siège social de SYSOCO pour échanger avec Gabriel VIVAS membre du bureau R&D sur les bienfait de la virtualisation. 
-
-La deuxième partie à durer un mois et m'a permis de comprendre et mettre en place les API. 
-
-D'une manière générale il y a très peu de communication sur les outils existants en matière de géomatique aussi bien pour les serveurs que pour les API. Pour trouver ADDOK il m'a fallut chercher profondément dans les dossiers d'ETALAB sur GitHub.
-
- Il m'a fallut expérimenter de nombreuses configurations pour pouvoir progresser et comprendre...
-
 <div style="page-break-after: always;"></div>
 
 # Configuration du serveur
@@ -147,8 +40,18 @@ Les prérequis logiciels sont:
 - Postgis
 
   
+  
+  
+  
+  La mise en place du docker OSM a pris 3 jours … avec cette configuration
+  
+  
 
 <div style="page-break-after: always;"></div>
+
+Avec docker avant de stopper le serveur physiquement bien penser à stopper les docker avec les commandes:
+
+`docker stop`ou `docker-compose stop`. On redémarre avec la commande `docker star` ou `docker-compose start`.
 
 #  Serveur cartographique
 
@@ -221,6 +124,103 @@ sudo -u postgres psql -c "CREATE EXTENSION PostGIS; CREATE EXTENSION PostGis_top
 ```
 
 Cette extension permettra de mettre en place les différentes tables
+
+
+
+Autre manière:
+
+Se connecter sur postgresql en psql qui est le language de postgresql avec le user postgres:
+
+```shell
+psql -h localhost -U postgres -p 25432
+```
+
+Lire les bases de données existantes:
+
+```shell
+\l
+```
+
+Postresql répond:
+
+```shell
+                                   List of databases
+       Name       |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges
+------------------+----------+----------+------------+------------+-----------------------
+ postgres         | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0        | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+                  |          |          |            |            | postgres=CTc/postgres
+ template1        | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+                  |          |          |            |            | postgres=CTc/postgres
+ template_postgis | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+(4 rows)
+```
+
+
+
+Création de la base de données France:
+
+```sql
+postgres=# CREATE DATABASE france;
+
+CREATE DATABASE
+```
+
+
+
+
+
+```sql
+postgres=# \l
+                                    List of databases
+       Name       |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges
+------------------+----------+----------+------------+------------+-----------------------
+ france           | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+ postgres         | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0        | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+                  |          |          |            |            | postgres=CTc/postgres
+ template1        | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+                  |          |          |            |            | postgres=CTc/postgres
+ template_postgis | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+(5 rows)
+```
+
+La base France est bien crée.
+
+Se connecter sur la base de données France et ajouter l'extension postgis:
+
+```sql
+postgres=# \c france
+psql (10.8 (Ubuntu 10.8-0ubuntu0.18.04.1), server 10.6 (Debian 10.6-1.pgdg90+1))
+You are now connected to database "france" as user "postgres".
+france=# CREATE EXTENSION PostGIS;
+```
+
+Postgresql répond:
+
+```sql
+CREATE EXTENSION
+```
+
+
+
+Puis l'extension topology:
+
+```sql
+france=# CREATE EXTENSION PostGIS_topology;
+```
+
+Postgresql répond:
+
+```sql
+CREATE EXTENSION
+```
+
+
+
+
+
+
 
 <div style="page-break-after: always;"></div>
 
@@ -377,7 +377,7 @@ Pour importer l'extraction complète de OpenStreetMap pour la France  la command
 wget http://download.geofabrik.de/europe/france-latest.osm.pbf
 // une fois le téléchargement terminé on peut importer le fichier dans la base de données.
 
-osm2pgsql -c -d webmapping -U postgres -W  -C 20000 france-latest.osm.pbf
+osm2pgsql -c -d france -U geoloc -W  -C 20000 france-latest.osm.pbf
 ```
 
 Où
@@ -1070,6 +1070,38 @@ Suivant les performances de la machine, l'instance mettra entre 30  secondes et 
 - 50 secondes sur une VM EG-15 OVH (4 vCPU, 15 Go)
 
 Par défaut l'instance écoute sur le port `7878`.
+
+**Quelques TIPS:**
+
+
+
+Docker-compose est comme un scenario qui va démarrer et configurer un ensemble de containers docker.
+
+Pour vérifier que docker-compose tourne, exécuter:
+
+```shell
+docker-compose ps
+```
+
+Dans le terminal on aura la liste des dockers qui tournent.
+
+Si on a besoin de stopper les container démarrer par docker-compose exécuter dans le même repertoire que le fichier `docker-compose.yml`:
+
+```shell
+docker-compose stop
+```
+
+
+
+Pour redémarrer les docker:
+
+```shell
+docker-compose start
+```
+
+
+
+Attention: **avec la VM il faut attendre 10 mn avant de voir le serveur opérationnel**.
 
 
 
