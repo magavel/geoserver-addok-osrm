@@ -440,6 +440,16 @@ Toute la difficulté ensuite est de configurer les fichiers de styles SLD. Chaqu
 
 Dans chaque` layer` il faudra paramétrer chaque élément pour le faire apparaitre ou non en fonction du zoom.
 
+
+
+### Mise en place des données
+
+Créer un entrepôts avec la base de données postGis.
+
+
+
+
+
 <div style="page-break-after: always;"></div>
 
 # Les API
