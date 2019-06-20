@@ -385,9 +385,14 @@ Où
 - -d => webmapping est le nom de la base de données
 - -c donne l'instruction create
 - -W force la demande de mot de passe
-
 - -U postrgres est le nom d'utilisateur
 - _C = <cache size>  vaut 75% de la mémoire en MiB, avec un maximum de 30000. 20000 semble correct.
+
+
+
+
+
+Sur le serveur VM avec 4 Go de RAM et 35 Go de swap compter 2 à 4 jours de calcul. Avec 90% de RAM et 90% de swap consommées...
 
 <div style="page-break-after: always;"></div>
 
