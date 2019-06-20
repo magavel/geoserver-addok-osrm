@@ -382,7 +382,7 @@ osm2pgsql -c -d france -U geoloc -W  -C 20000 france-latest.osm.pbf
 
 Où
 
-- -d => webmapping est le nom de la base de données
+- -d => France est le nom de la base de données
 - -c donne l'instruction create
 - -W force la demande de mot de passe
 - -U postrgres est le nom d'utilisateur
