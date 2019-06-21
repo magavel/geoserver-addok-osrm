@@ -402,37 +402,34 @@ Sur le serveur VM avec 4 Go de RAM et 35 Go de swap compter 2 à 4 jours de calc
 
 1. Être sûr d'avoir Java Runtime Environment (JRE) installé sur le système. GeoServer requière un environnement **Java 8**. 
 
-2. Sélectionner la version stable de geoserver et la télécharger
+2. Si le bon java n'est pas installé cela peut occasionner une erreur http 503.
 
-3. Télécharger l'archive et dézipper dans le repertoire suivant (recommandé): `/usr/share/geoserver`.
+3. Sélectionner la version stable de geoserver et la télécharger
 
-4. Ajouter une variable d'environnement  avec la commande suivante:
+   
 
    ```shell
-   echo "export GEOSERVER_HOME=/usr/share/geoserver" >> ~/.profile
+   # GeoServer install
+   apt install unzip
+   mkdir -p /var/www/geoserver
+   cd /var/www/geoserver
+   wget https://netcologne.dl.sourceforge.net/project/geoserver/GeoServer/2.14.1/geoserver-2.14.1-bin.zip
+   unzip geoserver-2.14.1-bin.zip
+   mv geoserver-2.14.1/* .
+   echo "export GEOSERVER_HOME=/var/www/geoserver" >> ~/.profile
    . ~/.profile
+   
+   # GeoServer run
+   ./bin/startup.sh
+   
+   In the browser open http://localhost:8080/geoserver/web/
    ```
 
    
 
-5. Attention aux droits sur le répertoire :
+4. Dans un navigateur aller à `http://localhost:8080/geoserver`.
 
-   ```shell
-   sudo chown -R USER_NAME /usr/share/geoserver/
-   ```
-
-   
-
-6. Démarrer GeoServer en executant le script `startup.sh`:
-
-   ```shell
-   cd chemin/vers/geoserver/bin
-   sh startup.sh
-   ```
-
-   
-
-7. Dans un navigateur aller à `http://localhost:8080/geoserver`.
+Reste à voir les différents droits sur les dossiers, les variables d'environnement de geoserver.
 
 
 
@@ -466,7 +463,7 @@ Toutes les routes des API sont testées avec le logiciel POSTMAN qui est un clie
 
 Le choix sera d'utiliser docker et son principe de container. Les différentes API utilisés sont maintenant toutes *dockerisée* par leurs concepteurs.
 
- L'objectif d'un conteneur est le même que pour un[serveur dédié virtuel :
+ L'objectif d'un conteneur est le même que pour un serveur dédié virtuel :
 
 	- héberger des services sur un même serveur physique tout en les isolant  les uns des autres. Un conteneur est 		cependant moins figé qu'une machine virtuelle en matière de taille de disque et de ressources allouées.  
 
